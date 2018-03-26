@@ -1,0 +1,125 @@
+.headerbanner{
+ width: 100%;
+    
+}
+.button1 {
+    background-color: #ffffff;
+}
+.nav-wrapper {
+    position: fixed;
+}
+
+.navbar-fixed {
+    z-index: 9999;
+}
+.logo {
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 60px;
+    margin-right: 20px;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+* { box-sizing: border-box; }
+.video-background {
+  background: #000;
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -99;
+}
+.video-foreground,
+.video-background iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#vidtop-content {
+	top: 0;
+	color: #fff;
+}
+.vid-info { position: absolute; top: 0; right: 0; width: 33%; background: rgba(0,0,0,0.3); color: #fff; padding: 1rem; font-family: Avenir, Helvetica, sans-serif; }
+.vid-info h1 { font-size: 2rem; font-weight: 700; margin-top: 0; line-height: 1.2; }
+.vid-info a { display: block; color: #fff; text-decoration: none; background: rgba(0,0,0,0.5); transition: .6s background; border-bottom: none; margin: 1rem auto; text-align: center; }
+@media (min-aspect-ratio: 16/9) {
+  .video-foreground { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+  .video-foreground { width: 300%; left: -100%; }
+}
+@media all and (max-width: 600px) {
+.vid-info { width: 50%; padding: .5rem; }
+.vid-info h1 { margin-bottom: .2rem; }
+}
+@media all and (max-width: 500px) {
+.vid-info .acronym { display: none; }
+}
+
+.card.small {
+   height: 10%;
+    padding: 0;
+  }
+
+  .gameImages {
+    padding-top: 8vh;
+  }
+  .fill-space {
+    height: 40vh;
+  }
+
+  .carousel .carousel-item {
+    width:500px !important;
+    height:500px !important}
+
+.video-foreground {
+filter: opacity(50%);
+}
+
+ .input-field input:focus + label {
+   color: black !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid black !important;
+   box-shadow: 0 1px 0 0 black !important
+ }
+
+
+
+.tabs .indicator {
+    background-color: black;
+}
+.tabs .tab a {
+    color: #000;
+}
+.tabs .tab a:hover,
+.tabs .tab a.active {
+    background-color: transparent;
+    color: black;
+}
+.tabs .tab.disabled a,
+.tabs .tab.disabled a:hover {
+    color: rgba(255, 255, 255, 255.255);
+}
+
+.col.s12 > .btn {
+   width: 100%;
+}
+
+
+.card .card-content {
+    padding: 6px;
+    border-radius: 0 0 2px 2px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
