@@ -7,7 +7,7 @@ include_once 'gravatar.php';
 $error = false;
 //check if form is submitted
 //var_dump($_POST['signup']);
-if (isset($_POST['signup'])) {
+if (isset($_POST['submit'])) {
 	$name = mysqli_real_escape_string($con, $_POST['name']);
 	$email = mysqli_real_escape_string($con, $_POST['email']);
     $subject = mysqli_real_escape_string($con, $_POST['subject']);
@@ -33,7 +33,6 @@ if (isset($_POST['signup'])) {
 }
 ?>
 <!DOCTYPE.php>
-.php>
 
 <head>
     <!--Import Google Icon Font-->
@@ -99,13 +98,13 @@ if (isset($_POST['signup'])) {
                       <div class="col s12 m6">
                           <div class="row">
                             <div class="input-field col s12">
-                              <input id="name" name="name" type="text">
+                              <input id="name" name="name" type="text" value="<?php echo $_SESSION['usr_name']; ?>">
                               <label for="first_name">Name</label>
                             </div>
                           </div>
                           <div class="row">
                             <div class="input-field col s12">
-                              <input id="email"  name="email" type="email">
+                              <input id="email"  name="email" type="email" value="<?php echo $_SESSION['usr_email']; ?>">
                               <label for="email" class="">Email</label>
                             </div>
                           </div>
@@ -122,7 +121,7 @@ if (isset($_POST['signup'])) {
                             </div>
                             <div class="row">
                               <div class="input-field col s12">
-                                <button class="btn black waves-effect waves-light right" type="submit" name="btn-submit" id="submitbutton")>Send
+                                <button class="btn black waves-effect waves-light right" type="submit" name="submit" id="submitbutton")>Send
                                   <i class="mdi-content-send right"></i>
 
                                 </button>

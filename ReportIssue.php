@@ -1,3 +1,38 @@
+<?php
+session_start();
+
+include_once 'dbconnect.php';
+include_once 'gravatar.php';
+//set validation error flag as false
+$error = false;
+//check if form is submitted
+//var_dump($_POST['signup']);
+if (isset($_POST['submit'])) {
+	$name = mysqli_real_escape_string($con, $_POST['name']);
+	$email = mysqli_real_escape_string($con, $_POST['email']);
+    $subject = mysqli_real_escape_string($con, $_POST['subject']);
+    $message = mysqli_real_escape_string($con, $_POST['message']);
+
+
+	//name can contain only alpha characters and space
+	if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
+		$error = true;
+		$name_error = "Name must contain only alphabets and space";
+	}
+	if(!filter_var($email,FILTER_VALIDATE_EMAIL)) {
+		$error = true;
+		$email_error = "Please Enter Valid Email ID";
+    }
+    if (!$error) {
+		if(mysqli_query($con, "INSERT INTO reportissue(name,email,subject,message) VALUES('" . $name . "', '" . $email . "', '" . $subject . "','" . $message . "')")) {
+			$successmsg = "Successfully Registered! <a href='login.php'>Click here to Login</a>";
+		} else {
+			$errormsg = "Error in registering...Please try again later!";
+		}
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +64,7 @@
             <?php } else { ?>
             <li><a href="login.php">| Login |</a></li>
             <li><a href="createusr.php">| Sign Up |</a></li>
-           
+
             <?php } ?>
             </ul>
             <ul class="side-nav" id="mobile-demo">
@@ -41,9 +76,9 @@
                 <?php } else { ?>
                 <li><a href="login.php">| Login |</a></li>
                 <li><a href="createusr.php">| Sign Up |</a></li>
-               
+
                 <?php } ?>
-                
+
             </ul>
         </div>
             </nav>
@@ -56,40 +91,41 @@
         </div>
     </div>
     <main>
-        
-        <div class="container card-content  ">
-            <h1>Report an Issue?</h1>
-            <div class="section ">
-                <p class="caption">Report your issue here.</p>
-                <div class="row ">
-                    <div class="col s12 m6 ">
-                        <form class="contact-form">
+      <form role="ReportIssue" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="reportissue">
+      <div class="container card-content">
+              <div class="section">
+                  <p class="caption">Have a question? Dont hesitate to send us a message. I will be happy to help.</p>
+                      <div class="row">
+
+                        <div class="col s12 m6">
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="contact_name" name="contact_name" type="text">
-                                    <label for="first_name">Name</label>
-                                </div>
+                              <div class="input-field col s12">
+                                <input id="name" name="name" type="text" value="<?php echo $_SESSION['usr_name']; ?>">
+                                <label for="first_name">Name</label>
+                              </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="contact_email" name="contact_email" type="email">
-                                    <label for="email" class="">Email</label>
-                                </div>
+                              <div class="input-field col s12">
+                                <input id="email"  name="email" type="email" value="<?php echo $_SESSION['usr_email']; ?>">
+                                <label for="email" class="">Email</label>
+                              </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="contact_subject" name="contact_subject" type="text">
-                                    <label for="website">Subject</label>
-                                </div>
+                              <div class="input-field col s12">
+                                <input id="subject" name="subject" type="text">
+                                <label for="website">Subject</label>
+                              </div>
                             </div>
                             <div class="row">
+                              <div class="input-field col s12">
+                                <textarea id="message" name="message" class="materialize-textarea"></textarea>
+                                <label for="message">Message</label>
+                              </div>
+                              <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="message" name="message" type="text">
-                                    <label for="website">Message</label>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <button class="btn black waves-effect waves-light " type="submit" name="btn-submit" id="submitbutton" >Send <i class="mdi-content-send right"></i> </button>
+                                  <button class="btn black waves-effect waves-light right" type="submit" name="submit" id="submitbutton")>Send
+                                    <i class="mdi-content-send right"></i>
+                                    </button>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +141,7 @@
                 <div class="col s9 offset-s2">
                     <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="AboutUs.php">About Us</a></div>
                     <div class="col s12 m6 l3"><a class="grey-text text-lighten-3 " href="forums.php">Forums</a></div>
-                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="contactme.php">Contact us</a></div>
+                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="reportissue.php">Contact us</a></div>
                     <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="ReportIssue.php">Report A Problem</a></div>
                 </div>
             </div>
