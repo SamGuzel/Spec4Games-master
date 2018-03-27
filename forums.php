@@ -1,3 +1,10 @@
+<?php
+session_start();
+include_once 'dbconnect.php';
+include_once 'gravatar.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +36,7 @@
             <?php } else { ?>
             <li><a href="login.php">| Login |</a></li>
             <li><a href="createusr.php">| Sign Up |</a></li>
-           
+
             <?php } ?>
             </ul>
             <ul class="side-nav" id="mobile-demo">
@@ -41,9 +48,9 @@
                 <?php } else { ?>
                 <li><a href="login.php">| Login |</a></li>
                 <li><a href="createusr.php">| Sign Up |</a></li>
-               
+
                 <?php } ?>
-                
+
             </ul>
         </div>
             </nav>
@@ -55,6 +62,7 @@
             <p>A bunch of text</p>
         </div>
     </div>
+
     <main>
         <div class="container">
             <div class="row">
@@ -79,58 +87,61 @@
                     }(document, "script", "twitter-wjs");
                 </script>
             </div>
-            <div class="col s12 m6">
-                <h2 class="header">Hardware & Software</h2>
-                <div class="card horizontal black">
-                    <div class="card-image"> <img src="assets/image4.jpeg"> </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p style="color: white">Join us in discussing the latest Hardware, Leave a comment</p>
-                        </div>
-                        <div class="card-action"> <a href="forumpost.php">Click me to Enter!!!</a> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                <h2 class="header">Game Talk</h2>
-                <div class="card horizontal black">
-                    <div class="card-image"> <img src="assets/image5.jpeg"> </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p style="color: white">Lets Discuss the latest Game News</p>
-                        </div>
-                        <div class="card-action"> <a href="forumpost.php">Click me to Enter!!!</a> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                <h2 class="header">Off Topic</h2>
-                <div class="card horizontal black">
-                    <div class="card-image"> <img src="assets/image6.jpeg"> </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p style="color: white">Lets Talk About Something Else?</p>
-                        </div>
-                        <div class="card-action"> <a href="forumpost.php">Click me to Enter!!!</a> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer class="page-footer black">
-        <div class="container">
-            <div class="row">
-                <div class="col s9 offset-s2">
-                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="AboutUs.php">About Us</a></div>
-                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3 " href="forums.php">Forums</a></div>
-                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="contactme.php">Contact us</a></div>
-                    <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="ReportIssue.php">Report A Problem</a></div>
-                </div>
-            </div>
-            <div class="footer-copyright black">
-                <div class="container black"> © 2017 Copyright Text</div>
-            </div>
-        </div>
+            <main class="container">
+	<div class="row">
+			<?php
+			if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+				echo "<a class=\"btn right\" href=\"NewPost.php\">New Post</a>";
+			}
+			?>
+			<div class="col m8 offset-m2">
+			<?php
+				$sql = "SELECT * FROM topic INNER JOIN users ON topic.users_id=users.id ORDER BY topic.topicid DESC";
+				$result = mysqli_query($con, $sql);
+				$resultCheck = mysqli_num_rows($result);
+				if ($resultCheck > 0) {
+					$topic ="";
+					while ($row = mysqli_fetch_assoc($result)) {
+						$t_id = $row['topicid'];
+						$t_title = htmlspecialchars($row['title']);
+						$t_content = htmlspecialchars($row['content']);
+						$t_content = nl2br($t_content);
+						$t_content = '<p>' . preg_replace('#(<br />[\r\n]+){2}#', '</p><p>', $t_content) . '</p>';
+						$t_user = $row['usr_name'];
+						$t_date = $row['post_date'];
+						if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+							$edit = "
+							<a class=\"btn\" href=\"del_topic.php?tid=$t_id\">Delete</a>
+							<a class=\"btn\" href=\"edit_topic.php?tid=$t_id\">Edit</a>
+							";
+						} else {
+							$edit ="";
+						}
+						$topic .= "
+									<div class=\"flow-text article-content\">
+										<div class=\"row\">
+										<div class=\"col m8 left\">
+											<h2>$t_title</h2>
+										</div>
+										<div class=\"col m4 right\">
+											<h5 class=\"right-align\">$t_date</h5>
+											<h5 class=\"right-align\">$t_user</h5>
+										</div>
+										</div>
+										<div class=\"row\">
+										<div>$t_content</div>
+										$edit
+										</div>
+									</div>";
+					}
+					echo $topic;
+				} else {
+					echo "No posts found";
+				}
+			?>
+		</div>
+	</div>
+</main>
     </footer>
 </body>
 <script>

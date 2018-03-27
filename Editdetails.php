@@ -7,7 +7,7 @@ $usr_id = $_SESSION['usr_id'];
 
 function displayUser($con, $login_user)
 {
-    $sql    = "SELECT id, name, password, email, phone, adminkey FROM users
+    $sql    = "SELECT id, name, password, email, phone FROM users
     WHERE id = '$login_user' ";
     $result = mysqli_query($con, $sql);
     $row    = mysqli_fetch_assoc($result);
@@ -21,10 +21,9 @@ function updateUser($con, $login_user)
     $password  = mysqli_real_escape_string($con, $_POST['password']);
     $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
     $phone     = mysqli_real_escape_string($con, $_POST['phone']);
-    $adminkey  = mysqli_real_escape_string($con, $_POST['adminkey']);
 
     $sql = "UPDATE users SET name = '$name' , email =
-    '$email' , password = '" . md5($password) . "' , phone = '$phone' , adminkey = '$adminkey'  WHERE id = '$login_user' ";
+    '$email' , password = '" . md5($password) . "' , phone = '$phone'  WHERE id = '$login_user' ";
     if (mysqli_query($con, $sql)) {
         $info = "Updated User successfully ";
     } else {
@@ -146,17 +145,10 @@ mysqli_close($con);
                         <label for="phone">Contact Number</label>
                     </div>
                     <div class="row m12">
-
-                                <div class="input-field col m3"> <i class="material-icons prefix">Admin</i>
-                                    <input id="adminkey" type="password" name="adminkey" class="validate" value="<?php echo $_SESSION['usr_adminkey'] ?>">
-                                    <label for="adminkey">Admin Key</label>
-                                </div>
-                            </div>
-                        <input type="submit" name="update" value="Change Details" />
-
-                        </div>
+                      <div class="input-field col m4 center-align">
+                    <button type="submit" name="update" value="Change Details" class="btn">change details</button>
+                      </div>
                     </div>
-                </div>
                 </form>
         </main>
         <footer class="page-footer black">

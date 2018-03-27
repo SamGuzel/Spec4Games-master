@@ -8,14 +8,13 @@ include_once 'dbconnect.php';
 //set validation error flag as false
 $error = false;
 //check if form is submitted
-var_dump($_POST['signup']);
+//var_dump($_POST['signup']);
 if (isset($_POST['signup'])) {
 	$name = mysqli_real_escape_string($con, $_POST['name']);
 	$email = mysqli_real_escape_string($con, $_POST['email']);
 	$password = mysqli_real_escape_string($con, $_POST['password']);
     $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
     $phone = mysqli_real_escape_string($con, $_POST['phone']);
-    $adminkey = mysqli_real_escape_string($con, $_POST['adminkey']);
 
 	//name can contain only alpha characters and space
 	if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
@@ -35,7 +34,7 @@ if (isset($_POST['signup'])) {
 		$cpassword_error = "Password and Confirm Password doesn't match";
 	}
 	if (!$error) {
-		if(mysqli_query($con, "INSERT INTO users(name,email,password,phone,adminkey) VALUES('" . $name . "', '" . $email . "', '" . md5($password) . "','" . $phone . "','" . $adminkey . "')")) {
+		if(mysqli_query($con, "INSERT INTO users(name,email,password,phone) VALUES('" . $name . "', '" . $email . "', '" . md5($password) . "','" . $phone . "')")) {
 			$successmsg = "Successfully Registered! <a href='login.php'>Click here to Login</a>";
 		} else {
 			$errormsg = "Error in registering...Please try again later!";
@@ -115,18 +114,13 @@ if (isset($_POST['signup'])) {
                         <input id="phone" type="text" name="phone" class="validate">
                         <label for="phone">Contact Number</label>
                     </div>
-                    <div class="row m12">
-
-                                <div class="input-field col m3"> <i class="material-icons prefix">Admin</i>
-                                    <input id="adminkey" type="password" name="adminkey" class="validate">
-                                    <label for="adminkey">Admin Key</label>
-                                </div>
-                            </div>
-                        <input type="submit" name="signup" value="Sign Up" />
-
-                        </div>
+                    <div class="input-field col m4 center-align">
+						<button type="submit" name="signup" value="Sign Up" class="btn">Sign Up</button>
                     </div>
-                </div>
+
+
+            		</div>
+                    </div>
                 </form>
         </main>
         <footer class="page-footer black">

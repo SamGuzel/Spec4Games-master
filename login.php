@@ -14,7 +14,7 @@ if (isset($_POST['login'])) {
         $_SESSION['usr_name'] = $row['name'];
         $_SESSION['usr_email'] = $row['email'];
         $_SESSION['usr_phone'] = $row['phone'];
-        $_SESSION['usr_adminkey'] = $row['adminkey'];
+        $_SESSION['usr_adminlevel'] = $row['adminlevel'];
 		header("Location: index.php");
 	} else {
 		$errormsg = "Incorrect Email or Password!!!";
