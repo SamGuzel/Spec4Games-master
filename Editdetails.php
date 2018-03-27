@@ -7,8 +7,8 @@ $usr_id = $_SESSION['usr_id'];
 
 function displayUser($con, $login_user)
 {
-    $sql    = "SELECT id, name, password, email, phone FROM users
-    WHERE id = '$login_user' ";
+    $sql    = "SELECT users_id, name, password, email, phone FROM users
+    WHERE users_id = '$login_user' ";
     $result = mysqli_query($con, $sql);
     $row    = mysqli_fetch_assoc($result);
     return $row;

@@ -96,7 +96,7 @@ include_once 'gravatar.php';
 			?>
 			<div class="col m8 offset-m2">
 			<?php
-				$sql = "SELECT * FROM topic INNER JOIN users ON topic.users_id=users.id ORDER BY topic.topicid DESC";
+				$sql = "SELECT * FROM topic INNER JOIN users ON topic.users_id=users.users_id ORDER BY topic.post_date DESC";
 				$result = mysqli_query($con, $sql);
 				$resultCheck = mysqli_num_rows($result);
 				if ($resultCheck > 0) {
@@ -107,12 +107,12 @@ include_once 'gravatar.php';
 						$t_content = htmlspecialchars($row['content']);
 						$t_content = nl2br($t_content);
 						$t_content = '<p>' . preg_replace('#(<br />[\r\n]+){2}#', '</p><p>', $t_content) . '</p>';
-						$t_user = $row['usr_name'];
+						$t_user = $row['name'];
 						$t_date = $row['post_date'];
 						if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
 							$edit = "
-							<a class=\"btn\" href=\"del_topic.php?tid=$t_id\">Delete</a>
-							<a class=\"btn\" href=\"edit_topic.php?tid=$t_id\">Edit</a>
+							<a class=\"btn btn-primary\" href=\"del_topic.php?tid=$t_id\">Delete</a>
+							<a class=\"btn\" href=\"edit_post_content.php?tid=$t_id\">Edit</a>
 							";
 						} else {
 							$edit ="";
@@ -142,7 +142,22 @@ include_once 'gravatar.php';
 		</div>
 	</div>
 </main>
-    </footer>
+<footer class="page-footer black">
+  <div class="container">
+    <div class="row">
+      <div class="col s9 offset-s2">
+        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="AboutUs.php">About Us</a></div>
+        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3 " href="forums.php">Forums</a></div>
+        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="contactme.php">Contact us</a></div>
+        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="ReportIssue.php">Report A Problem</a></div>
+      </div>
+    </div>
+    <div class="footer-copyright black">
+      <div class="container black"> © 2017 Copyright Text</div>
+    </div>
+  </div>
+</footer>
+
 </body>
 <script>
         $(document).ready(function () {
