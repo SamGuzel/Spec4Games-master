@@ -7,7 +7,7 @@ if (isset($_POST['submit']) && isset($_SESSION['usr_name']) && $_SESSION['usr_ad
     $title = $_POST['t_title'];
     $content = $_POST['t_content'];
 
-                $sql = "INSERT INTO topic (title, content, post_date, users_id) VALUES ('$title', '$content', '$seshID', NOW())";
+                $sql = "INSERT INTO topic (title, content, post_date, users_id) VALUES ('$title', '$content', NOW(), '$seshID')";
                 $result = mysqli_query($con, $sql);
                 if ($result = true) {
                   header("Location: NewPost.php?=postsuccess");
