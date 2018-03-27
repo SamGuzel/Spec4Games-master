@@ -68,76 +68,94 @@ include_once 'gravatar.php';
                 <div class="col s12 m6">
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text black " style="margin-bottom: : 0px"> <span class="card-title">Announcements</span> </div>
-                        <div class="card-content white-text grey">
-                            <p>Welcome To The Forums. Click A topic to enter and have a read, comment and discuss! - English Comments please (Just to keep it universal), No Racism or talk of Politics - We're here to discuss PC!</p>
+                        <div class="card-content center-align white-text grey">
+                            <p>Welcome To The Forums, Please be Aware Of The Rules: </p>
+                            <p>
+                              This is a post section / forum section so that you can get the latest
+                              news on what spec/games/hardware and other PC related news is out there.
+                              Simply Press Add, type in the title and fill out the content!
+                            </p>
+                            <pre>
+
+
+                            </pre>
+                            <li> 1. No Racism </li>
+                            <li> 2. No Politics </li>
+                            <li> 3. No Discrimination </li>
+                            <li> 4. Keep It On Topic </li>
+                            <pre>
+                            </pre>
                         </div>
-                    </div>
-                </div> <a class="twitter-timeline" href="https://twitter.com/hashtag/Gaming" data-widget-id="935669741192138753">#Gaming Tweets</a>
-                <script>
-                    ! function (d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0]
-                            , p = /^http:/.test(d.location) ? 'http' : 'https';
-                        if (!d.getElementById(id)) {
-                            js = d.createElement(s);
-                            js.id = id;
-                            js.src = p + "://platform.twitter.com/widgets.js";
-                            fjs.parentNode.insertBefore(js, fjs);
+                        <?php
+                        if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+                          echo "<a class=\"btn black right\" href=\"NewPost.php\">New Post</a>";
                         }
-                    }(document, "script", "twitter-wjs");
-                </script>
+                        ?>
+                    </div>
+                  </div> <a class="twitter-timeline" href="https://twitter.com/hashtag/Gaming" data-widget-id="935669741192138753">#Gaming Tweets</a>
+                  <script>
+                  ! function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0]
+                    , p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                      js = d.createElement(s);
+                      js.id = id;
+                      js.src = p + "://platform.twitter.com/widgets.js";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }
+                  }(document, "script", "twitter-wjs");
+                  </script>
             </div>
-            <main class="container">
+            <div class="card blue-grey darken-1">
+                <div class="card-content center-align white-text grey"
+            <main class = "container">
+              <div class="col m12 offset-m2">
+
+                <?php
+                $sql = "SELECT * FROM topic INNER JOIN users ON topic.users_id=users.users_id ORDER BY topic.post_date DESC";
+                $result = mysqli_query($con, $sql);
+                $resultCheck = mysqli_num_rows($result);
+                if ($resultCheck > 0) {
+                  $topic ="";
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $t_id = $row['topicid'];
+                    $t_title = htmlspecialchars($row['title']);
+                    $t_content = htmlspecialchars($row['content']);
+                    $t_content = nl2br($t_content);
+                    $t_content = '<p>' . preg_replace('#(<br />[\r\n]+){2}#', '</p><p>', $t_content) . '</p>';
+                    $t_user = $row['name'];
+                    $t_date = $row['post_date'];
+                    if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+                      $edit = "
+                      <a class=\"btn black btn-primary\" href=\"del_topic.php?tid=$t_id\">Delete</a>
+                      <a class=\"btn black\" href=\"edit_post_content.php?tid=$t_id\">Edit</a>
+                      ";
+                    } else {
+                      $edit ="";
+                    }
+                    $topic .= "
+                    <div class=\"flow-text article-content\">
+                    <div class=\"row\">
+                    <div class=\"col left\"></div>
+                    <div class=\"card-content white-text black \" style=\"margin-bottom: : 0px\"> <span class=\"card-title\"><h2>$t_title</h2></span> </div>
+                    <div class=\"col m7 right\">
+                    <h5 class=\"left-align\">$t_date</h5> </div>
+                    <div class =\"col m7 left-align\">
+                    <h5 class=\"cent-align black-text\">$t_user</h5> </div>
+                    </div>
+                    <div class=\"row\">
+                    <div class=\"container\">$t_content</div>
+                    $edit
+                    </div>
+                    </div>";
+                  }
+                  echo $topic;
+                } else {
+                  echo "No posts found";
+                }
+                ?>
+              </div>
 	<div class="row">
-			<?php
-			if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
-				echo "<a class=\"btn right\" href=\"NewPost.php\">New Post</a>";
-			}
-			?>
-			<div class="col m8 offset-m2">
-			<?php
-				$sql = "SELECT * FROM topic INNER JOIN users ON topic.users_id=users.users_id ORDER BY topic.post_date DESC";
-				$result = mysqli_query($con, $sql);
-				$resultCheck = mysqli_num_rows($result);
-				if ($resultCheck > 0) {
-					$topic ="";
-					while ($row = mysqli_fetch_assoc($result)) {
-						$t_id = $row['topicid'];
-						$t_title = htmlspecialchars($row['title']);
-						$t_content = htmlspecialchars($row['content']);
-						$t_content = nl2br($t_content);
-						$t_content = '<p>' . preg_replace('#(<br />[\r\n]+){2}#', '</p><p>', $t_content) . '</p>';
-						$t_user = $row['name'];
-						$t_date = $row['post_date'];
-						if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
-							$edit = "
-							<a class=\"btn btn-primary\" href=\"del_topic.php?tid=$t_id\">Delete</a>
-							<a class=\"btn\" href=\"edit_post_content.php?tid=$t_id\">Edit</a>
-							";
-						} else {
-							$edit ="";
-						}
-						$topic .= "
-									<div class=\"flow-text article-content\">
-										<div class=\"row\">
-										<div class=\"col m8 left\">
-											<h2>$t_title</h2>
-										</div>
-										<div class=\"col m4 right\">
-											<h5 class=\"right-align\">$t_date</h5>
-											<h5 class=\"right-align\">$t_user</h5>
-										</div>
-										</div>
-										<div class=\"row\">
-										<div>$t_content</div>
-										$edit
-										</div>
-									</div>";
-					}
-					echo $topic;
-				} else {
-					echo "No posts found";
-				}
-			?>
 		</div>
 	</div>
 </main>
