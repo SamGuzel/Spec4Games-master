@@ -2,21 +2,6 @@
 session_start();
 include_once 'dbconnect.php';
 include_once 'gravatar.php';
-// $sql = "SELECT * FROM user WHERE id = '$_SESSION[login_user]' ";
-// $result = mysqli_query($conn,$sql);
-// $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
-    $url = 'https://www.gravatar.com/avatar/';
-    $url .= md5( strtolower( trim( $email ) ) );
-    $url .= "?s=$s&d=$d&r=$r";
-    if ( $img ) {
-        $url = '<img src="' . $url . '"';
-        foreach ( $atts as $key => $val )
-            $url .= ' ' . $key . '="' . $val . '"';
-        $url .= ' />';
-    }
-    return $url;
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,32 +22,31 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mobilefriendly.js"></script>
     <div class="navbar-fixed">
-    <nav class="black">
-        <div class="container nav-wrapper"> <a href="index.php" class="brand-logo white-text">Spec4Games</a> <a href="#" data-activates="mobile-demo" class="button-collapse "><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down black-text white-text">
-            <?php if (isset($_SESSION['usr_id'])) { ?>
-            <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-            <li><a href="Editdetails.php">Edit Details</a></li
-            <li><a href="logout.php">Log Out</a></li>
-            <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
-            <?php } else { ?>
-            <li><a href="login.php">| Login |</a></li>
-            <li><a href="createusr.php">| Sign Up |</a></li>
-
-            <?php } ?>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-            <?php if (isset($_SESSION['usr_id'])) { ?>
-                <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-                <li><a href="Editdetails.php">Edit Details</a></li
+        <nav class="black">
+            <div class="container nav-wrapper"> <a href="index.php" class="brand-logo white-text">Spec4Games</a> <a href="#" data-activates="mobile-demo" class="button-collapse "><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down black-text white-text">
+                <?php if (isset($_SESSION['usr_id'])) { ?>
+        <li><a class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></a></li>
+                <li><a href="Editdetails.php">Edit Details</a></li>
                 <li><a href="logout.php">Log Out</a></li>
                 <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
-                <?php } else { ?>
-                <li><a href="login.php">| Login |</a></li>
-                <li><a href="createusr.php">| Sign Up |</a></li>
+        <?php } else { ?>
+        <li><a href="login.php">| Login |</a></li>
+        <li><a href="createusr.php">| Sign Up |</a></li>
 
-                <?php } ?>
+        <?php } ?>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                <?php if (isset($_SESSION['usr_id'])) { ?>
+                    <li><a class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></a></li>
+                    <li><a href="Editdetails.php">Edit Details</a></li>
+                    <li><a href="logout.php">Log Out</a></li>
+                    <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
+                    <?php } else { ?>
+                    <li><a href="login.php">| Login |</a></li>
+                    <li><a href="createusr.php">| Sign Up |</a></li>
 
+                    <?php } ?>
             </ul>
         </div>
             </nav>

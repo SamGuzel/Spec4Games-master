@@ -17,33 +17,32 @@
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mobilefriendly.js"></script>
     <header>
-    <div class="navbar-fixed">
-    <nav class="black">
-        <div class="container nav-wrapper"> <a href="index.php" class="brand-logo white-text">Spec4Games</a> <a href="#" data-activates="mobile-demo" class="button-collapse "><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down black-text white-text">
-            <?php if (isset($_SESSION['usr_id'])) { ?>
-            <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-            <li><a href="Editdetails.php">Edit Details</a></li
-            <li><a href="logout.php">Log Out</a></li>
-            <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
-            <?php } else { ?>
-            <li><a href="login.php">| Login |</a></li>
-            <li><a href="createusr.php">| Sign Up |</a></li>
-           
-            <?php } ?>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-            <?php if (isset($_SESSION['usr_id'])) { ?>
-                <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-                <li><a href="Editdetails.php">Edit Details</a></li
-                <li><a href="logout.php">Log Out</a></li>
-                <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
-                <?php } else { ?>
-                <li><a href="login.php">| Login |</a></li>
-                <li><a href="createusr.php">| Sign Up |</a></li>
-               
-                <?php } ?>
-                
+      <div class="navbar-fixed">
+          <nav class="black">
+              <div class="container nav-wrapper"> <a href="index.php" class="brand-logo white-text">Spec4Games</a> <a href="#" data-activates="mobile-demo" class="button-collapse "><i class="material-icons">menu</i></a>
+                  <ul class="right hide-on-med-and-down black-text white-text">
+                  <?php if (isset($_SESSION['usr_id'])) { ?>
+          <li><a class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></a></li>
+                  <li><a href="Editdetails.php">Edit Details</a></li>
+                  <li><a href="logout.php">Log Out</a></li>
+                  <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
+          <?php } else { ?>
+          <li><a href="login.php">| Login |</a></li>
+          <li><a href="createusr.php">| Sign Up |</a></li>
+
+          <?php } ?>
+                  </ul>
+                  <ul class="side-nav" id="mobile-demo">
+                  <?php if (isset($_SESSION['usr_id'])) { ?>
+                      <li><a class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></a></li>
+                      <li><a href="Editdetails.php">Edit Details</a></li>
+                      <li><a href="logout.php">Log Out</a></li>
+                      <?php echo get_gravatar($_SESSION['usr_email'],40,'mm','g',true,array())?>
+                      <?php } else { ?>
+                      <li><a href="login.php">| Login |</a></li>
+                      <li><a href="createusr.php">| Sign Up |</a></li>
+
+                      <?php } ?>
             </ul>
         </div>
             </nav>
