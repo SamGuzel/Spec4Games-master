@@ -1,5 +1,8 @@
 <?php
-if ($_SESSION['usr_adminlevel'] < 1) {
+session_start();
+include_once 'gravatar.php';
+
+if ($_SESSION['usr_adminlevel'] <= 1) {
     header("Location: forums.php?error=nopermission");
 }
 ?>
@@ -41,8 +44,6 @@ if ($_SESSION['usr_adminlevel'] < 1) {
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mobilefriendly.js"></script>
     <header>
-    <div class="navbar-fixed">
-    <nav class="black">
       <div class="navbar-fixed">
           <nav class="black">
               <div class="container nav-wrapper"> <a href="index.php" class="brand-logo white-text">Spec4Games</a> <a href="#" data-activates="mobile-demo" class="button-collapse "><i class="material-icons">menu</i></a>
@@ -73,39 +74,61 @@ if ($_SESSION['usr_adminlevel'] < 1) {
             </ul>
         </div>
             </nav>
-        </div> <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a> <img id="headerbanner" class="responsive-img" src="assets/header.jpeg" style="width: 100%; " /> </header>
+          </div>  <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a> <img id="headerbanner" class="responsive-img" src="assets/header.jpeg" style="width: 100%; " /> </header>
 
 <!-- SECTIONS -->
-<main class="container">
-    <div class="row">
+<div class="tap-target" data-activates="menu">
+    <div class="tap-target-content">
+        <h5>Title</h5>
+        <p>A bunch of text</p>
+    </div>
+</div>
+<main class="container center-align">
+
 
         <form class="col s10 offset-s1" action="edit_topic.php" method="post" enctype="multipart/form-data">
             <div class="row">
-                <h1>Add new post</h1>
+                <h1>Edit This Post</h1>
 
                 <div class="input-field">
                     <input hidden type="text" name="t_id" value="<?php echo $t_id; ?>">
                     <input type="text" name="t_title" id="t_title" value="<?php echo $t_title; ?>">
                     <label for="t_title">Post Title</label>
                 </div>
-                </div>
 
                 <div class="input-field">
-                    <textarea name="t_content" class="materialize-textarea" id="textarea1"><?php echo $p_content; ?></textarea>
-                    <label for="textarea1">Post Content</label>
+                    <input type="text" name="t_content" class="materialize-textarea" id="t_content" value="<?php echo $t_content; ?>">
+                    <label for="t_content">Post Content</label>
                 </div>
 
-                <button class="btn waves-effect waves-light" type="submit" name="submit">Submit
+                <button class="btn black waves-effect waves-light" type="submit" name="submit">Submit
                     <i class="material-icons right">send</i>
                 </button>
 
             </div>
+          </div>
         </form>
 
     </div>
 </main>
-
+<footer class="page-footer black">
+    <div class="container">
+        <div class="row">
+            <div class="col s9 offset-s2">
+                <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="AboutUs.php">About Us</a></div>
+                <div class="col s12 m6 l3"><a class="grey-text text-lighten-3 " href="forums.php">Forums</a></div>
+                <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="contactme.php">Contact us</a></div>
+                <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="ReportIssue.php">Report A Problem</a></div>
+            </div>
+        </div>
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Copyright Text</div>
+        </div>
+    </div>
+</footer>
+</body>
 <script type="text/javascript">
     $('#textarea1').val('New Text');
     $('#textarea1').trigger('autoresize');
 </script>
+</html>

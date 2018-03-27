@@ -83,11 +83,11 @@ include_once 'gravatar.php';
                             <li> 2. No Politics </li>
                             <li> 3. No Discrimination </li>
                             <li> 4. Keep It On Topic </li>
-                            <pre>
-                            </pre>
+                            <li> 5. Anyone Can Make A New Topic, Contact Us If You Want It Deleted Or Edited</li>
+                            <pre></pre>
                         </div>
                         <?php
-                        if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+                        if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] >= 0) {
                           echo "<a class=\"btn black right\" href=\"NewPost.php\">New Post</a>";
                         }
                         ?>

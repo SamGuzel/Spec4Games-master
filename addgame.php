@@ -58,18 +58,33 @@ include_once 'gravatar.php';
 <main class="container">
     <div class="row">
 
-        <form class="col s10 offset-s1" action="addnewpost.php" method="post" enctype="multipart/form-data">
+        <form class="col s10 offset-s1" action="addnewgame.php" method="post" enctype="multipart/form-data">
             <div class="row">
                 <h1>Add A New Post</h1>
 
                 <div class="input-field">
-                    <input type="text" name="t_title" id="t_title">
-                    <label for="p_title">Post Title</label>
+                    <input type="text" name="g_title" id="g_title">
+                    <label for="g_title">GameName</label>
                 </div>
 
                 <div class="input-field">
-                    <textarea name="t_content" class="materialize-textarea" id="textarea1"></textarea>
-                    <label for="textarea1">Post Content</label>
+                    <textarea name="g_minspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <label for="textarea1">Min Spec</label>
+                </div>
+
+                <div class="input-field">
+                    <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <label for="textarea1">Min Spec</label>
+                </div>
+
+                <div class="input-field">
+                    <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <label for="textarea1">Min Spec</label>
+                </div>
+
+                <div class="input-field" type = "number">
+                    <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <label for="textarea1">Whats The Spec Level (1 Easy --> 10 being demanding )</label>
                 </div>
 
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Submit
@@ -82,22 +97,6 @@ include_once 'gravatar.php';
     </div>
 </main>
 </head>
-
-<footer class="page-footer black">
-  <div class="container">
-    <div class="row">
-      <div class="col s9 offset-s2">
-        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="AboutUs.php">About Us</a></div>
-        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3 " href="forums.php">Forums</a></div>
-        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="contactme.php">Contact us</a></div>
-        <div class="col s12 m6 l3"><a class="grey-text text-lighten-3" href="ReportIssue.php">Report A Problem</a></div>
-      </div>
-    </div>
-    <div class="footer-copyright black">
-      <div class="container black"> © 2017 Copyright Text</div>
-    </div>
-  </div>
-</footer>
 </body>
 <script type="text/javascript">
     $('#textarea1').val('New Text');

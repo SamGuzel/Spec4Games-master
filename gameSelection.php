@@ -1,3 +1,10 @@
+<?php
+session_start();
+include_once 'dbconnect.php';
+include_once 'gravatar.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -115,9 +122,11 @@
                 </select>
                 <label>Choose Game 4</label>
             </div>
-            <div class="center">
-                <a style="color:black" class="waves-effect waves-light btn white">Add Game (Admin)</a>
-            </div>
+            <?php
+            if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+              echo "<a class=\"btn white black-text right\" href=\"addgame.php\">Add Game (Admin)</a>";
+            }
+            ?>
         </div>
 
     </main>

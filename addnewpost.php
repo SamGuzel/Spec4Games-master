@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_POST['submit']) && isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
+if (isset($_POST['submit']) && isset($_SESSION['usr_name'])) {
     include_once 'dbconnect.php';
 
     $seshID = $_SESSION['usr_id'];
