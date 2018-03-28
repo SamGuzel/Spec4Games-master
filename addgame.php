@@ -60,7 +60,7 @@ include_once 'gravatar.php';
 
         <form class="col s10 offset-s1" action="addnewgame.php" method="post" enctype="multipart/form-data">
             <div class="row">
-                <h1>Add A New Post</h1>
+                <h1>Add A New Game</h1>
 
                 <div class="input-field">
                     <input type="text" name="g_title" id="g_title">
@@ -74,16 +74,16 @@ include_once 'gravatar.php';
 
                 <div class="input-field">
                     <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
-                    <label for="textarea1">Min Spec</label>
+                    <label for="textarea1">Rec Spec</label>
                 </div>
 
                 <div class="input-field">
-                    <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
-                    <label for="textarea1">Min Spec</label>
+                    <textarea name="g_futspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <label for="textarea1">Future Proofed Spec</label>
                 </div>
 
                 <div class="input-field" type = "number">
-                    <textarea name="g_recspec" class="materialize-textarea" id="textarea1"></textarea>
+                    <textarea name="g_speclevel" class="materialize-textarea" id="textarea1"></textarea>
                     <label for="textarea1">Whats The Spec Level (1 Easy --> 10 being demanding )</label>
                 </div>
 

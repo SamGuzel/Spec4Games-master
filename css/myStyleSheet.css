@@ -1,6 +1,6 @@
 .headerbanner{
  width: 100%;
-    
+
 }
 .button1 {
     background-color: #ffffff;
@@ -92,8 +92,6 @@ filter: opacity(50%);
    border-bottom: 1px solid black !important;
    box-shadow: 0 1px 0 0 black !important
  }
-
-
 
 .tabs .indicator {
     background-color: black;

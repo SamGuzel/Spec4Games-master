@@ -1,6 +1,51 @@
+<?php
+session_start();
+include_once 'dbconnect.php';
+include_once 'gravatar.php';
+
+?>
 <!DOCTYPE html>
 <html>
-
+<?php
+$sql = "SELECT * FROM gamelist INNER JOIN users ON gamelist.users_id=users.users_id ORDER BY gamelist.name WHERE gamelist.name == $_selection";
+$result = mysqli_query($con, $sql);
+$resultCheck = mysqli_num_rows($result);
+if ($resultCheck > 0) {
+  $topic ="";
+  while ($row = mysqli_fetch_assoc($result)) {
+    $t_id = $row['gameID'];
+    $t_title = htmlspecialchars($row['name']);
+    $t_content = htmlspecialchars($row['minspec']);
+    $t_content = nl2br($t_content);
+    $t_rec = htmlspecialchars($row['recspec']);
+    $t_rec = nl2br($t_rec);
+    $t_fut = htmlspecialchars($row['futspec']);
+    $t_fut = nl2br($t_fut);
+    $t_content = '<p>' . preg_replace('#(<br />[\r\n]+){2}#', '</p><p>', $t_content) . '</p>';
+    $t_user = $row['name'];
+  }
+    $topic .= "
+    <div class=\"flow-text article-content\">
+    <div class=\"row\">
+    <div class=\"col left\"></div>
+    <div class=\"card-content white-text black \" style=\"margin-bottom: : 0px\"> <span class=\"card-title\"><h2>$t_title</h2></span> </div>
+    <div class=\"col m7 right\">
+    <h5 class=\"left-align\">$t_date</h5> </div>
+    <div class =\"col m7 left-align\">
+    <h5 class=\"cent-align black-text\">$t_user</h5> </div>
+    </div>
+    <div class=\"row\">
+    <div class=\"container\">$t_content</div>
+    <div class=\"row\">
+    <div class=\"container\">$t_rec</div>
+    <div class=\"row\">
+    <div class=\"container\">$t_fut</div>
+    $edit
+    </div>
+    </div>";
+  }
+  echo $gamelist;
+?>
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -61,58 +106,7 @@
 
   </div>
   <main>
-    <div class="card">
-      <div class="card-content">
-        <p>Please flick between the tabs to find out the specs we have worked out for your choice of games.</p>
-      </div>
-      <div class="card-tabs">
-        <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a href="#test4">Minimum Requirements</a></li>
-          <li class="tab"><a class="active" href="#test5">Recommended Requirements</a></li>
-          <li class="tab"><a href="#test6">Future Proofed Specs</a></li>
-        </ul>
-      </div>
-      <div class="card-content grey lighten-4">
-        <div id="test4">Minimum
-          <ul>
-            <li> 64-bit Windows 7 SP1, Windows 8.1 and Windows 10</li>
-            <li>Processor (AMD): AMD FX-6350</li>
-            <li>Processor (Intel): Intel Core i5 6600K</li>
-            <li>Memory: 8GB RAM</li>
-            <li>Graphics card (AMD): AMD Radeon™ HD 7850 2GB</li>
-            <li>Graphics card (NVIDIA): NVIDIA GeForce® GTX 660 2GB</li>
-            <li>DirectX: 11.0 Compatible video card or equivalent</li>
-            <li>Online Connection Requirements: 512 KBPS or faster Internet connection</li>
-            <li>Hard-drive space: 15GB</li>
-          </ul>
-        </div>
-        <div id="test5">Recommended
-        <ul>
-          <li>OS: 64-bit Windows 10 or later</li>
-          <li> Processor (AMD): AMD FX 8350 Wraith</li>
-          <li> Processor (Intel): Intel Core i7 6700 or equivalent</li>
-          <li>Memory: 16GB RAM</li>
-          <li>Graphics card (AMD): AMD Radeon™ RX 480 4GB</li>
-          <li>Graphics card (NVIDIA): NVIDIA GeForce® GTX 1060 3GB</li>
-          <li>DirectX: 11.1 Compatible video card or equivalent</li>
-          <li>Online Connection Requirements: 512 KBPS or faster Internet connection</li>
-          <li>Hard-drive space: 15GB</li>
-        </ul>
-        </div>
-        <div id="test6">Future Proofed
-        <ul>
-            <li>OS: 64-bit Windows 10 or later</li>
-            <li> Processor (AMD): AMD FX 8350 Wraith</li>
-            <li> Processor (Intel): Intel Core i7 6700 or equivalent</li>
-            <li>Memory: 16GB RAM</li>
-            <li>Graphics card (AMD): AMD Radeon™ RX 480 4GB</li>
-            <li>Graphics card (NVIDIA): NVIDIA GeForce® GTX 1060 3GB</li>
-            <li>DirectX: 11.1 Compatible video card or equivalent</li>
-            <li>Online Connection Requirements: 512 KBPS or faster Internet connection</li>
-            <li>Hard-drive space: 15GB</li>
-          </ul>
-          </div>
-    </div>
+
   </main>
 
 

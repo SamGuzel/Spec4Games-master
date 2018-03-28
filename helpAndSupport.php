@@ -1,3 +1,9 @@
+<?php
+session_start();
+include_once 'dbconnect.php';
+include_once 'gravatar.php';
+
+?>
 <!DOCTYPE html>
 <html>
 

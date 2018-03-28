@@ -69,59 +69,28 @@ include_once 'gravatar.php';
         </div>
     </div>
     <main>
-        <div class="row container ">
-            <div class="carousel ">
-                <a class="carousel-item " href="#one! "><img src="assets/starc.jpg "></a>
-                <a class="carousel-item " href="#two! "><img src="assets/sc2.jpg "></a>
-                <a class="carousel-item " href="#three! "><img src="assets/wild.png "></a>
-                <a class="carousel-item " href="#four! "><img src="assets/starWars.jpg "></a>
-                <a class="carousel-item " href="#five! "><img src="assets/pubg1.jpg "></a>
-                <a class="carousel-item " href="#six! "><img src="assets/destiny.jpg "></a>
-                <a class="carousel-item " href="#seven! "><img src="assets/league.jpg "></a>
-                <a class="carousel-item " href="#eight! "><img src="assets/gta5.jpg "></a>
-                <a class="carousel-item " href="#nine! "><img src="assets/mc.jpg "></a>
-            </div>
-        </div>
-        <div class="center">
-            <a style="color:black" href="specschosen.php" class="waves-effect waves-light btn white">CLICK TO CONTINUE</a>
-        </div>
-        <div class="row container ">
-            <div class="input-field col s12 m6 white-text ">
-                <select class="icons ">
-                    <option value=" " disabled selected>Choose Game</option>
-                    <option value=" " data-icon="assets/starc.jpg " class="circle ">Star Citizen</option>
-                    <option value=" " data-icon="assets/sc2.jpg " class="circle ">Starcraft 2</option>
-                    <option value=" " data-icon="assets/wild.png " class="circle ">Wildlands</option>
-                </select>
-                <label>Choose Game 1</label>
-            </div>
-            <div class="input-field col s12 m6 white-text ">
-                <select class="icons ">
-                    <option value=" " disabled selected>Choose Game</option>
-                    <option value=" " data-icon="assets/starWars.jpg " class="left circle ">Star Wars Battlefront 2</option>
-                    <option value=" " data-icon="assets/pubg1.jpg " class="left circle ">Player Unknown Battlegrounds</option>
-                    <option value=" " data-icon="assets/destiny.jpg " class="left circle ">Destiny 2</option>
-                </select>
-                <label>Choose Game 2</label>
-            </div>
-            <div class="input-field col s12 m6 white-text">
-                <select class="icons ">
-                    <option value=" " disabled selected>Destiny 2</option>
-                    <option value=" " data-icon="assets/league.jpg " class="left circle ">League Of Legends</option>
-                    <option value=" " data-icon="assets/gta5.jpg " class="left circle ">Grand Theft Auto 5</option>
-                    <option value=" " data-icon="assets/mc.jpg " class="left circle ">Minecraft</option>
-                </select>
-                <label>Choose Game 3</label>
-            </div>
-            <div class="input-field col s12 m6 white-text ">
-                <select class="icons">
-                    <option value=" " disabled selected>Choose Game</option>
-                    <option value=" " data-icon="assets/sample-1.jpg" class="left circle "> League Of Legends</option>
-                    <option value=" " data-icon="assets/office.jpg " class="left circle ">Call of Duty WW2</option>
-                    <option value=" " data-icon="assets/yuna.jpg " class="left circle ">CS:GO </option>
-                </select>
-                <label>Choose Game 4</label>
-            </div>
+
+        <<div class="container center ">
+             <div class="input-field col s12 m6 white-text ">
+
+        <?php
+
+        $mysqli = new mysqli("localhost","root","","testdb");
+        $sqlSelect = "SELECT name FROM gamelist";
+        $result = mysqli_query($con, $sqlSelect);
+
+        echo "<select name='name'>";
+        while ($row = mysqli_fetch_array($result)) {
+        echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+      }
+      echo "</select>";
+
+      ?>
+    
+      <div class="center">
+        <a style="color:black" href="specschosen.php" class="waves-effect waves-light btn white">CLICK TO CONTINUE</a>
+      </div>
+      <div class="center">
             <?php
             if (isset($_SESSION['usr_name']) && $_SESSION['usr_adminlevel'] > 0) {
               echo "<a class=\"btn white black-text right\" href=\"addgame.php\">Add Game (Admin)</a>";

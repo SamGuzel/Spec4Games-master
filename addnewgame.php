@@ -11,7 +11,7 @@ if (isset($_POST['submit']) && isset($_SESSION['usr_name'])) {
     $speclevel = $_POST['g_speclevel'];
 
 
-                $sql = "INSERT INTO gamelist (name, minspec, recspec, futurespec) VALUES ('$title', ' $minspec', '$recspec', '$futspec', '$speclevel')";
+                $sql = "INSERT INTO gamelist (name, minspec, recspec, futurespec, speclevel, users_id) VALUES ('$title', ' $minspec', '$recspec', '$futspec', '$speclevel', '$seshID')";
                 $result = mysqli_query($con, $sql);
                 if ($result = true) {
                   header("Location: addgame.php?=postsuccess");
